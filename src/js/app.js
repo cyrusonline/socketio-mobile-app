@@ -33,3 +33,4 @@ var vm = new Vue({
 });
 
 window.vm = vm
+window.conn = new WebSocket('ws://10.107.147.190:8080');

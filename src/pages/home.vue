@@ -23,7 +23,7 @@
 
     </f7-list>
     <f7-list>
-        <f7-list-item  v-for="message in messages" link="/about/" :title="message"></f7-list-item>
+        <f7-list-item  v-for="message in messages"  :title="message"></f7-list-item>
         
     </f7-list>
    
@@ -40,15 +40,13 @@ export default {
     data() {
         return {
             name: null,
-            messages: ['adsfsaf','asdfsaf'],
+            messages: [],
             connected:'nothing to connect'
         }
     },
 
     methods: {
-        vmalert(){
-            alert('vm alert')
-        },
+   
       clear(){
         this.messages = []
       },
@@ -64,51 +62,28 @@ export default {
             conn.send(this.name);
         }
     },
-    mounted() {
-        // const socket = io('http://10.107.147.190:9000');
-    
-
-// window.conn.onopen = function(e) {
-//     console.log('connected to websocket')
-//     //console.log("Connection established!");
-// 	this.connected = 'connected to websocket'
-// };
-
-
-    },
+ 
     created() {
         const vm = this
-
-
-        window.conn = new WebSocket('ws://10.107.147.190:8080');
-
-window.conn.onopen = function(e) {
-    const self = this
-    // console.log('connected to websocket')
-    //console.log("Connection established!");
-    callvfunction()
+        conn.onopen = function(e) {
+        callvfunction()
 };
 
 function callvfunction(){
     console.log('call v function')
-  vm.connected = "connect to websocket"
+    vm.connected = "connect to websocket"
 }
 
-window.conn.onmessage = function(e) {
-    const self = this
-    console.log('message from websocket ',e.data);
-    
-   appendMessages(e.data)
-	
+conn.onmessage = function(e) {
+      console.log('message from websocket ',e.data);
+      appendMessages(e.data)	
 };
 
 function appendMessages(msg){
-    const self = this
+    
     console.log('appendmssage')
-//     alert('adsfas')
-//    alert(vm.connect。ed)
     vm.messages.push(msg)
-    // alert(vm.messages)
+
 }
     
            // console.log('socket')
