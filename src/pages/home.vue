@@ -9,7 +9,7 @@
         <f7-nav-right>
             <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
         </f7-nav-right>
-        <f7-nav-title-large sliding>My App {{name}}</f7-nav-title-large>
+        <f7-nav-title-large sliding>socket {{name}}</f7-nav-title-large>
     </f7-navbar>
 
     <!-- Page content-->
@@ -18,6 +18,8 @@
         <f7-list-input label="Name" type="text" placeholder="Your name" clear-button :value="name" @input="name = $event.target.value"> </f7-list-input>
         <f7-button fill @click="send">send</f7-button>
         <f7-button fill @click="submit">submit</f7-button>
+        <f7-button fill @click="sendMessage">send message</f7-button>
+        <f7-button fill @click="subscribe">subscribe</f7-button>
         <p></p>
         <f7-button fill @click="clear">clear messages</f7-button>
 
@@ -60,7 +62,13 @@ export default {
         submit(){
             this.messages.push(this.name)
             conn.send(this.name);
-        }
+        },
+        subscribe(){
+            conn.send(JSON.stringify({command: "subscribe", channel: 'abcchannel'}));
+        },
+        sendMessage() {
+    conn.send(JSON.stringify({command: "message", message: this.name}));
+}
     },
  
     created() {
